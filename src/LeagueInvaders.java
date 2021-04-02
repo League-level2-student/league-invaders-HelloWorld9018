@@ -3,7 +3,6 @@ import javax.swing.JFrame;
 public class LeagueInvaders {
 	
 	JFrame frame = new JFrame();
-
 	GamePanel drawing;
 	
 	public static final int WIDTH = 500;
@@ -26,6 +25,7 @@ public class LeagueInvaders {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(drawing);
+		frame.addKeyListener(drawing);
 	}
 	
 }
