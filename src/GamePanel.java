@@ -23,6 +23,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	Timer frameDraw;
 	
+	Rocketship rocket = new Rocketship(250, 700, 50, 50);
+	
+	boolean inBounds;
+	
 	GamePanel(){
 		titleFont = new Font("Serif", Font.BOLD, 45);
 		middleFont = new Font("Serif", Font.PLAIN, 20);
@@ -61,6 +65,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		rocket.draw(g);
 	}
 	
 	void drawEndState(Graphics g) {
@@ -124,20 +129,37 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		        currentState++;
 		    }
 		} 
+		
 		if(currentState == GAME) {
+	
 		if (e.getKeyCode()==KeyEvent.VK_UP) {
 		    System.out.println("UP");
+		   if (rocket.x>=10) {
+			   rocket.up(); 
+		   //fix this
+		}
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_DOWN) {
 			System.out.println("DOWN");
+			   if (rocket.x<=490) {
+			rocket.down();
+			   }
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_LEFT) {
 			System.out.println("LEFT");
+			checkBounds();
+			   if (inBounds == true) {
+			rocket.left();
+			   }
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 			System.out.println("RIGHT");
+			checkBounds();
+			   if (inBounds == true) {
+			rocket.right();
+			   }
 		}
-		
+			
 		}
 		
 	}
@@ -146,6 +168,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	void checkBounds() {
+		if(rocket.x > 0 && rocket.x < 500 && rocket.y > 0 && rocket.y < 800) {
+			inBounds = true;
+		}
+		else {
+			inBounds = false;
+		}
 	}
 	
 }
