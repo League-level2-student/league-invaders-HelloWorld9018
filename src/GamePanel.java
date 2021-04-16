@@ -53,11 +53,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
-		g.drawString("LEAGUE INVADERS", 20, 120);
+		g.drawString("LEAGUE INVADERS", 19+18, 120);
 		g.setFont(middleFont);
-		g.drawString("Press ENTER to start", 150, 350);
+		g.drawString("Press ENTER to start", 150+18, 350);
 		g.setFont(endFont);
-		g.drawString("Press SPACE for instructions", 115, 450);
+		g.drawString("Press SPACE for instructions", 115+18, 450);
 		
 		
 	}
@@ -73,11 +73,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
-		g.drawString("GAME OVER", 95, 120);
+		g.drawString("GAME OVER", 95+18, 120);
 		g.setFont(middleFont);
-		g.drawString("You killed enemies", 160, 350);
+		g.drawString("You killed enemies", 160+18, 350);
 		g.setFont(endFont);
-		g.drawString("Press ENTER to restart", 140, 450);
+		g.drawString("Press ENTER to restart", 140+18, 450);
 	}
 
 	@Override
@@ -131,31 +131,30 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		} 
 		
 		if(currentState == GAME) {
-	
+			
 		if (e.getKeyCode()==KeyEvent.VK_UP) {
 		    System.out.println("UP");
-		   if (rocket.x>=10) {
+		    if (rocket.y>=10) {
 			   rocket.up(); 
-		   //fix this
 		}
-		}
+			}
 		else if (e.getKeyCode()==KeyEvent.VK_DOWN) {
 			System.out.println("DOWN");
-			   if (rocket.x<=490) {
+			   if (rocket.y<=740) {
 			rocket.down();
 			   }
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_LEFT) {
 			System.out.println("LEFT");
-			checkBounds();
-			   if (inBounds == true) {
+			
+			  if(rocket.x >= 10) {
 			rocket.left();
-			   }
+			  }
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 			System.out.println("RIGHT");
-			checkBounds();
-			   if (inBounds == true) {
+		
+			   if (rocket.x <= 440) {
 			rocket.right();
 			   }
 		}
@@ -170,6 +169,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		
 	}
 	
+	//This is not needed, delete maybe
 	void checkBounds() {
 		if(rocket.x > 0 && rocket.x < 500 && rocket.y > 0 && rocket.y < 800) {
 			inBounds = true;

@@ -21,11 +21,12 @@ public class LeagueInvaders {
 	}
 
 	void Setup(){
-		frame.setSize(WIDTH, HEIGHT);
+		frame.setSize(WIDTH + 14, HEIGHT +37);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(drawing);
 		frame.addKeyListener(drawing);
+		//frame.pack();
 	}
 	
 }
