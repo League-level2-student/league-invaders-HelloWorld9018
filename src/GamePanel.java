@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Font endFont;
 	
 	Timer frameDraw;
+	Timer alienSpawn;
 	
 	Rocketship rocket = new Rocketship(250, 700, 50, 50);
 	
@@ -143,12 +144,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		    if (currentState == END) {
 		        currentState = MENU;
 		    } 
+		    
+		    else if(currentState == MENU) {
+		    	currentState = GAME;
+		    	startGame();
+		    }
+		    
 		    else {
 		        currentState++;
 		    }
 		} 
 		
+	
+		
 		if(currentState == GAME) {
+			
 			
 		if (e.getKeyCode()==KeyEvent.VK_UP) {
 		    System.out.println("UP");
@@ -176,7 +186,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 			rocket.right();
 			   }
 		}
+		
+		if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+			manager.addProjectile(rocket.getProjectile());
+		}
 			
+		}
+		
+		if (currentState == END) {
+			alienSpawn.stop();
 		}
 		
 	}
@@ -186,6 +204,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	public void startGame() {
+		alienSpawn = new Timer(1000, manager);
+		alienSpawn.start();
+		
+		//if(alienSpawn.equals()) {
+			
+	//	}
+		
+	}
+	
 	
 	void loadImage(String imageFile) {
 	    if (needImage) {
