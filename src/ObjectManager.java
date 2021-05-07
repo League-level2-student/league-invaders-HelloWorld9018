@@ -9,6 +9,7 @@ public class ObjectManager implements ActionListener{
 	ArrayList<Projectile> missiles = new ArrayList<Projectile>();
 	ArrayList<Alien> alienTroops = new ArrayList<Alien>();
 	Random ran = new Random();
+	int score = 0;
 	
 	ObjectManager(Rocketship rocket){
 		this.rocket = rocket;
@@ -26,7 +27,7 @@ public class ObjectManager implements ActionListener{
 	void update() {
 		
 		rocket.update();
-		checkCollision();
+		
 		
 		for(int i = 0; i<alienTroops.size(); i++) {
 			alienTroops.get(i).update();
@@ -42,7 +43,8 @@ public class ObjectManager implements ActionListener{
 				missiles.get(i).isActive = false;
 			}
 		}
-		
+		checkCollision();
+		System.out.println("updating objects");
 		purgeObjects();
 		//STEP 6, GO TO GAME PANEL
 		
@@ -56,22 +58,28 @@ public class ObjectManager implements ActionListener{
 		for(int i = 0; i < missiles.size(); i++) {
 			missiles.get(i).draw(g);
 		}
+		
 	}
 	
 	void purgeObjects() {
 		for(int i = 0; i < alienTroops.size(); i++) {
-			if(alienTroops.get(i).isActive = false) {
+			if(!alienTroops.get(i).isActive) {
 				alienTroops.remove(i);
+				score++;
 			}
 		}
+		
 		for(int i = 0; i < missiles.size(); i++) {
-			if(missiles.get(i).isActive = false) {
+			System.out.println("this part is working");
+			if(!missiles.get(i).isActive) {
 			missiles.remove(i);
+			System.out.println("missile at i removed from array");
+			//missiles.get(i).needImage = false;
 			}
 		}
-		if(rocket.isActive = false) {
+		//if(rocket.isActive = false) {
 			//make rocketship dissapear.
-		}
+		//}
 	}
 
 	@Override
@@ -83,15 +91,23 @@ public class ObjectManager implements ActionListener{
 	public void checkCollision(){
 		for(int i = 0; alienTroops.size()>i; i++) {
 			if (alienTroops.get(i).collisionBox.intersects(rocket.collisionBox)) {
+				//alienTroops.get(i).isActive=false;
+				rocket.isActive=false;
 				
 			}
-			for(int j = 0; missiles.size()>j; i++) {
+			for(int j = 0; missiles.size()>j; j++) {
 				if(alienTroops.get(i).collisionBox.intersects(missiles.get(j).collisionBox)) {
-					
+				alienTroops.get(i).isActive=false;
+				missiles.get(j).isActive=false;
+				
 				}
 			}
 			
 		}
+	}
+	
+	int getScore() {
+		return score;
 	}
 	
 	

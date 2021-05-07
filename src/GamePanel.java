@@ -8,7 +8,9 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
@@ -26,6 +28,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Font titleFont;
 	Font middleFont;
 	Font endFont;
+	Font scoreFont;
 	
 	Timer frameDraw;
 	Timer alienSpawn;
@@ -36,10 +39,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	ObjectManager manager = new ObjectManager(rocket);
 	
+	
+	
 	GamePanel(){
 		titleFont = new Font("Serif", Font.BOLD, 45);
 		middleFont = new Font("Serif", Font.PLAIN, 20);
 		endFont = new Font("Serif", Font.ROMAN_BASELINE, 20);
+		scoreFont = new Font("Calibri", Font.BOLD, 20);
 		
 		frameDraw = new Timer(1000/60, this);
 		frameDraw.start();
@@ -56,6 +62,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	void updateGameState(){
 		manager.update();
+		
+		
+		//JTextPane text = new JTextPane();
+		//frame.add(text);
+		
+		
+		if(rocket.isActive == false) {
+			currentState = END;
+		}
+	
+		
 	}
 	
 	void updateEndState(){
@@ -85,16 +102,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 			g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		}
 		manager.draw(g);
+		
+		int score = manager.getScore();
+		g.setColor(Color.WHITE);
+		g.setFont(scoreFont);
+		g.drawString("Score: " + score , 10, 25);
+	
 	}
 	
 	void drawEndState(Graphics g) {
+		int score = manager.getScore();
+		
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
 		g.drawString("GAME OVER", 95+18, 120);
 		g.setFont(middleFont);
-		g.drawString("You killed enemies", 160+18, 350);
+		g.drawString("You killed " + score + " enemies", 160+18, 350);
 		g.setFont(endFont);
 		g.drawString("Press ENTER to restart", 140+18, 450);
 	}
@@ -142,12 +167,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		// TODO Auto-generated method stub
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
+		    	//step 5: replace the existing inactive rocketship with a new rocketship object
+		    	//step 6
+		    	
 		        currentState = MENU;
 		    } 
 		    
 		    else if(currentState == MENU) {
-		    	currentState = GAME;
+		    	//reset game with reset method?  /*nvm*/
 		    	startGame();
+		    	currentState = GAME;
+		    	
 		    }
 		    
 		    else {
@@ -213,6 +243,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		//if(alienSpawn.equals()) {
 			
 	//	}
+		
+	}
+	
+	public void reset() {
 		
 	}
 	
