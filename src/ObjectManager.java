@@ -33,6 +33,7 @@ public class ObjectManager implements ActionListener{
 			alienTroops.get(i).update();
 			if(alienTroops.get(i).height > LeagueInvaders.HEIGHT) {
 				alienTroops.get(i).isActive = false;
+				//
 			}
 		
 		}

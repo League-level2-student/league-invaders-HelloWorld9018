@@ -168,8 +168,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
 		    	//step 5: replace the existing inactive rocketship with a new rocketship object
+		    	rocket = new Rocketship(250, 700, 50, 50);
 		    	//step 6
-		    	
+		    	manager = new ObjectManager(rocket);
 		        currentState = MENU;
 		    } 
 		    
